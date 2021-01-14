@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  server:
+    image: app
+    volumes:
+      - .:/usr/app
+    command: npm run dev
+    ports:
+      - 4000:4000
+    networks:
+      - back-tier
+  watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app
+    volumes:
+      - .:/usr/app
+    command: npm run watch
+    networks:
+      - back-tier
+networks:
+  back-tier:
